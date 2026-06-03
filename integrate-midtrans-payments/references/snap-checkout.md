@@ -89,6 +89,8 @@ Example token payload:
 }
 ```
 
+Generate `expiry.start_time` at request time in `yyyy-MM-dd HH:mm:ss +0700`; it is optional, so omit it to default to transaction creation time. The example value above is illustrative only — a past `start_time` shortens or immediately ends the payment window, and async methods (bank transfer, e-wallet) only begin counting from it.
+
 Do not paste a real customer email, real phone number, server key, client key, or full provider response into examples, logs, tickets, or chat.
 
 ## Snap State Model
@@ -182,18 +184,25 @@ Snap session cancel/expire and Core API transaction cancel/expire are different:
 - Before method selection, use Snap session endpoints if the token/page itself must be invalidated.
 - After a transaction exists, use transaction status/cancel/expire endpoints for the underlying payment.
 
-## Core API Endpoints Used With Snap
+## Server-Side Endpoints Used With Snap
 
-Snap merchants often still need server-side recovery endpoints. Use the server key with Basic Auth and confirm current docs before shipping:
+Snap merchants often still need server-side recovery endpoints. They live on **two different host families — do not mix them**:
 
-| Purpose | Endpoint shape | Use |
-| --- | --- | --- |
-| Get status | `GET /v2/{order_id}/status` | Reconcile order page, polling, webhook gaps, and support investigations. |
-| Cancel transaction | `POST /v2/{order_id}/cancel` | Cancel pending/capture transactions when allowed by provider state. |
-| Expire transaction | `POST /v2/{order_id}/expire` | End a pending payment when local order expiry requires it. |
-| Refund transaction | `POST /v2/{order_id}/refund` | Start full or partial refund when method and merchant policy allow it. |
-| Cancel Snap session | `POST /snap/v1/transactions/{snapToken}/cancel` | Invalidate an unused Snap page before a payment transaction exists. |
-| Expire Snap session | `POST /snap/v1/transactions/{snapToken}/expire` | Expire an unused Snap page/token before method selection. |
+- Core API (status, cancel, expire, refund): `https://api.midtrans.com` (live) / `https://api.sandbox.midtrans.com` (sandbox).
+- Snap API (token creation and Snap-session cancel/expire): `https://app.midtrans.com` (live) / `https://app.sandbox.midtrans.com` (sandbox).
+
+Use the server key with Basic Auth and confirm current docs before shipping:
+
+| Purpose | Host family | Endpoint shape | Use |
+| --- | --- | --- | --- |
+| Get status | Core API (`api.*`) | `GET /v2/{order_id}/status` | Reconcile order page, polling, webhook gaps, and support investigations. |
+| Cancel transaction | Core API (`api.*`) | `POST /v2/{order_id}/cancel` | Cancel pending/capture transactions when allowed by provider state. |
+| Expire transaction | Core API (`api.*`) | `POST /v2/{order_id}/expire` | End a pending payment when local order expiry requires it. |
+| Refund transaction | Core API (`api.*`) | `POST /v2/{order_id}/refund` | Start full or partial refund when method and merchant policy allow it. |
+| Cancel Snap session | Snap API (`app.*`) | `POST /snap/v1/transactions/{snapToken}/cancel` | Invalidate an unused Snap page before a payment transaction exists. |
+| Expire Snap session | Snap API (`app.*`) | `POST /snap/v1/transactions/{snapToken}/expire` | Expire an unused Snap page/token before method selection. |
+
+The Snap token host (`app.*`) is not the Core API host (`api.*`); reusing one base for the other returns 404. Match the sandbox/live host to the key environment.
 
 Do not call production endpoints for ordinary tests. Use sandbox credentials, local deterministic signature checks, or an explicitly approved live smoke runbook.
 
@@ -226,7 +235,7 @@ Load current docs before implementing any advanced feature. These are decision p
 | `custom_field1`-`custom_field3` | Merchant needs dashboard/search metadata | Keep values non-sensitive and short. |
 | Customer collection controls | Merchant wants Snap to collect name/email/phone/address | Decide which fields are required, optional, or not collected. |
 | Dashboard theme/preferences | Merchant wants branded Snap UI | Prefer dashboard configuration over code. |
-| Customer-imposed payment fee | Merchant wants to pass some payment fee to customer | Confirm merchant pricing/legal policy and active method support. |
+| Customer-imposed payment fee | Merchant wants to pass some payment fee to customer | Confirm merchant pricing/legal policy and active method support; add the fee as an item so net `item_details` total still equals `gross_amount`. |
 | Credit card 3DS | Card payments are enabled | Keep 3DS enabled unless Midtrans and merchant risk owners explicitly approve otherwise. |
 | Saved card / subsequent card payment | Returning customers need faster card checkout | Store returned card token fields server-side and respect expiry. |
 | Recurring card payment | Subscription or scheduled billing | Separate first-payment tokenization from later recurring charges. |
