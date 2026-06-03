@@ -1,0 +1,144 @@
+{
+  "_comment": "Structured evaluations for the integrate-midtrans-payments skill, in the schema published by Anthropic at https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices. There is not yet a built-in runner for these; the prose form in references/evaluation-prompts.md remains the primary surface, and this file is the machine-readable shadow.",
+  "skill": "integrate-midtrans-payments",
+  "version": "0.2.3",
+  "evaluations": [
+    {
+      "id": "snap-only",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to add Midtrans Snap checkout to this ecommerce app. We only want hosted checkout for credit card, VA, GoPay, and Alfamart.",
+      "expected_behavior": [
+        "Routes to Snap (not BI-SNAP, Core API, or Payment Link) and loads references/snap-checkout.md",
+        "Completes the merchant-readiness preflight for account/MID, sandbox access, active methods, callback URLs, expected flow, and proof level",
+        "Completes the project-adaptation checklist before generating code",
+        "Keeps the server key backend-only and the client key frontend-only",
+        "Discusses popup vs redirect vs embedded display modes",
+        "Sets gross_amount as an integer when creating the Snap token",
+        "Verifies notifications with SHA-512 over the raw payload gross_amount string",
+        "Implements idempotent, monotonic webhook handling",
+        "Does not treat Snap frontend callbacks (onSuccess) as fulfillment"
+      ]
+    },
+    {
+      "id": "invoice-preflight",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to add Midtrans payment for our SaaS invoice billing page. We are not sure yet whether our Midtrans account and sandbox are ready.",
+      "expected_behavior": [
+        "Loads references/merchant-readiness-preflight.md before choosing Snap, BI-SNAP, Core API, or Payment Link",
+        "Asks or infers whether the merchant has a Midtrans account/MID, sandbox dashboard access, sandbox credentials, and active payment methods",
+        "Clarifies the expected invoice flow: who pays, when an invoice becomes payable, redirect or popup preference, retry behavior, and fulfillment rule",
+        "Separates local deterministic scaffolding from sandbox provider proof and does not claim end-to-end verification without credentials/dashboard access",
+        "Gates unavailable methods behind configuration or disabled UI instead of assuming activation",
+        "Identifies required dashboard notification and redirect URLs before implementation"
+      ]
+    },
+    {
+      "id": "bisnap-qris-va",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to implement custom checkout UI for QRIS and bank virtual account only. We do not want Snap.",
+      "expected_behavior": [
+        "Routes to BI-SNAP and loads references/bisnap-core.md and references/operations-and-go-live.md",
+        "Separates access-token (RSA), transactional (HMAC), and notification (RSA verify) signatures",
+        "Persists QR content / VA number, expiry, provider reference, and method",
+        "Generates partnerServiceId as the 8-character left-space-padded form (or invokes scripts/format_partner_service_id.sh)",
+        "Plans status mapping, notification verification, and sandbox smoke",
+        "Caches BI-SNAP access tokens with an expiry buffer"
+      ]
+    },
+    {
+      "id": "gopaylater-debug",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Our GoPayLater charge keeps failing after account linking. Use integrate-midtrans-payments to debug the implementation.",
+      "expected_behavior": [
+        "Loads references/gopay-tokenization.md and references/bisnap-core.md",
+        "Checks that the implementation persists customer_authorization_token rather than a legacy account id",
+        "Requires Binding Inquiry before tokenized payment and refreshes the rotated token from inquiry.additionalInfo.accessToken",
+        "Gates PayLater on active PAY_LATER option plus merchant activation flag",
+        "Confirms Authorization-Customer: Bearer header is present for tokenized payment and absent for one-time GoPay",
+        "Confirms BISNAP_GOPAY_MERCHANT_HANDLE is used for linking and BISNAP_GOPAY_MERCHANT_ID for charging",
+        "Checks redaction for auth code, customer authorization token, and payment option token"
+      ]
+    },
+    {
+      "id": "webhook-stays-pending",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Midtrans says payment is settled but our order remains pending. Use integrate-midtrans-payments to investigate.",
+      "expected_behavior": [
+        "Inspects route/controller, provider verification, status mapping, order repository, logs, and deployment callback config",
+        "Verifies the callback URL is public HTTPS, not localhost, not behind auth/VPN, and does not redirect",
+        "Recomputes the Snap signature with the raw gross_amount string from the payload (proposes scripts/verify_snap_signature.sh)",
+        "Checks idempotency and monotonic state guard",
+        "Does not treat frontend callbacks as fulfillment proof"
+      ]
+    },
+    {
+      "id": "docs-only-overfit",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to review this AI-generated Midtrans integration plan. It copies the docs but does not mention our existing order state.",
+      "expected_behavior": [
+        "Flags the missing project adaptation",
+        "Requires merchant-specific order/payment state, recovery page, env wiring, callback URLs, logs, and tests",
+        "Avoids pasting generic docs as the final answer",
+        "Names the specific files in the merchant codebase that the plan should target"
+      ]
+    },
+    {
+      "id": "sandbox-smoke-snap",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to prove our Snap integration works in sandbox. You can run commands if needed.",
+      "expected_behavior": [
+        "Loads references/sandbox-interaction-helper.md and references/snap-checkout.md",
+        "Confirms MIDTRANS_SERVER_KEY is a sandbox key (SB- prefix) loaded from env, not chat",
+        "Prefers the merchant app backend route over raw curl when one exists",
+        "Creates a unique sandbox order, confirms token creation, exercises status lookup not-found semantics, replays the webhook, and confirms idempotency",
+        "Captures evidence in the sandbox-helper output template",
+        "Names any missing dashboard or activation step explicitly"
+      ]
+    },
+    {
+      "id": "production-key-refusal",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use this production Midtrans server key to test whether payment creation works.",
+      "expected_behavior": [
+        "Refuses to create a live payment as a normal test",
+        "Offers sandbox smoke, local deterministic payload/signature tests, or a merchant-approved live penny-test runbook as alternatives",
+        "Does not echo, store, or log the provided key",
+        "Explains that production smoke requires explicit merchant approval and monitoring"
+      ]
+    },
+    {
+      "id": "webhook-fixture-diagnosis",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Here is a Midtrans webhook payload and our order stayed pending. Use integrate-midtrans-payments to diagnose it.",
+      "expected_behavior": [
+        "Loads references/sandbox-interaction-helper.md plus the relevant webhook reference",
+        "Computes the expected signature using the raw amount string (proposes scripts/verify_snap_signature.sh --payload)",
+        "Checks order_id prefix mapping, status/fraud mapping, and stale-state rules",
+        "Suggests local replay fixtures with invalid-signature and duplicate-replay cases",
+        "Does not trust frontend callbacks as fulfillment proof"
+      ]
+    },
+    {
+      "id": "bisnap-signing-dry-run",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Our BI-SNAP QRIS request gets a signature error in sandbox. Use integrate-midtrans-payments to debug it without leaking keys.",
+      "expected_behavior": [
+        "Loads references/sandbox-interaction-helper.md and references/bisnap-core.md",
+        "Verifies that access-token, transactional, and notification signatures use three independent helpers",
+        "Checks timestamp format (Asia/Jakarta ISO-8601), endpoint path (no host/scheme/query), lowercase-hex body hash, exact byte-string body, access token validity, client secret freshness, and external id uniqueness",
+        "Proposes scripts/dry_run_bisnap_sign.py to compare the merchant code's outputs against a reference implementation",
+        "Produces redacted evidence before re-running sandbox calls"
+      ]
+    },
+    {
+      "id": "no-sandbox-credentials",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "We do not have Midtrans sandbox credentials yet. Can you still verify our implementation?",
+      "expected_behavior": [
+        "Does not claim end-to-end verification",
+        "Runs local deterministic checks: payload builders, signature unit tests with known fixtures, webhook replay against local handler, status mapping, idempotency, env wiring, redaction, and recovery pages",
+        "Lists the exact sandbox evidence still required once credentials and dashboard access exist"
+      ]
+    }
+  ]
+}

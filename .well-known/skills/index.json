@@ -1,0 +1,52 @@
+{
+  "version": "0.2.3",
+  "updated_at": "2026-05-29",
+  "homepage": "https://docs.midtrans.com",
+  "repository": "https://github.com/midtrans/midtrans-agent-skills",
+  "license": "BSD-3-Clause",
+  "skills": [
+    {
+      "name": "integrate-midtrans-payments",
+      "version": "0.2.3",
+      "updated_at": "2026-05-29",
+      "license": "BSD-3-Clause",
+      "description": "Use when working with Midtrans merchant payments: Snap, Core API, BI-SNAP, QRIS, virtual account, GoPay, GoPay tokenization, GoPayLater, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation.",
+      "path": "integrate-midtrans-payments/",
+      "entry": "SKILL.md",
+      "files": [
+        "SKILL.md",
+        "evaluations.json",
+        "agents/openai.yaml",
+        "references/agent-portability.md",
+        "references/bisnap-core.md",
+        "references/evaluation-prompts.md",
+        "references/gopay-tokenization.md",
+        "references/merchant-decision-tree.md",
+        "references/merchant-readiness-preflight.md",
+        "references/midtrans-runtime-patterns.md",
+        "references/operations-and-go-live.md",
+        "references/project-adaptation.md",
+        "references/sandbox-interaction-helper.md",
+        "references/snap-checkout.md",
+        "references/verification-playbook.md",
+        "scripts/README.md",
+        "scripts/verify_snap_signature.sh",
+        "scripts/replay_snap_webhook.sh",
+        "scripts/sign_bisnap_transaction.py",
+        "scripts/sign_bisnap_access_token.py",
+        "scripts/verify_bisnap_notification.py",
+        "scripts/dry_run_bisnap_sign.py",
+        "scripts/format_partner_service_id.sh",
+        "scripts/bisnap_timestamp.py",
+        "assets/fixtures/snap-notification-settlement.json",
+        "assets/fixtures/snap-notification-pending.json",
+        "assets/fixtures/snap-notification-expire.json",
+        "assets/fixtures/bisnap-qris-notification.json",
+        "assets/fixtures/bisnap-va-notification.json",
+        "assets/fixtures/bisnap-debit-notification.json",
+        "assets/fixtures/gopay-account-linking-notification.json",
+        "assets/templates/env.example"
+      ]
+    }
+  ]
+}

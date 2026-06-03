@@ -1,0 +1,69 @@
+name: Official Readiness
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      check_docs_links:
+        description: "Fetch docs.midtrans.com links during this run"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  local-readiness:
+    name: Local readiness gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Show tool versions
+        run: |
+          python --version
+          bash --version | head -1
+          openssl version
+
+      - name: Run official readiness checker
+        run: ./tools/check_official_readiness.py
+
+      - name: Verify required pressure packs are generatable from a clean commit
+        run: |
+          ./tools/build_pressure_pack.py --host claude-code --require-clean --dry-run
+          ./tools/build_pressure_pack.py --host codex --require-clean --dry-run
+
+      - name: Compile repository Python tools
+        run: python -m py_compile tools/*.py integrate-midtrans-payments/scripts/*.py
+
+  docs-links:
+    name: Live Midtrans docs links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.check_docs_links == 'true')
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run official readiness checker with live docs links
+        run: ./tools/check_official_readiness.py --check-doc-links
