@@ -41,7 +41,7 @@ Server-side only:
 - Sandbox transaction endpoint: `https://app.sandbox.midtrans.com/snap/v1/transactions`
 - Production transaction endpoint: `https://app.midtrans.com/snap/v1/transactions`
 - Auth: `Authorization: Basic base64(serverKey + ":")`
-- Keep server key only on the backend. Client key is for Snap JS.
+- Keep server key only on the backend. The client key is for Snap JS — it is not a secret and is safe to expose on the public frontend.
 
 Token request checks:
 
