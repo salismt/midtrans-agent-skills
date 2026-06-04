@@ -200,6 +200,22 @@
       ]
     },
     {
+      "id": "mobile-snap-webview-gopay",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to add Midtrans payment to our React Native app. We want Snap hosted checkout in a WebView and need GoPay app-switch return to work.",
+      "expected_behavior": [
+        "Loads references/merchant-readiness-preflight.md, references/project-adaptation.md, references/snap-checkout.md, and references/mobile-sdk.md",
+        "Chooses Snap WebView as the default mobile path, not a deprecated native SDK or an unofficial React Native plugin",
+        "Confirms the merchant backend already creates Snap tokens server-side and never puts the server key in the mobile app",
+        "Persists local payment state before opening the WebView so app backgrounding or cold start can recover",
+        "Uses the exact Snap redirect_url returned by Midtrans without rewriting, shortening, or encoding it",
+        "Configures the WebView to allow JavaScript, cookies, and external app/universal/deep-link redirects needed by wallet methods",
+        "Sets GoPay callback_url only when the merchant app has registered and tested the deeplink, and treats QR-scan payments as a separate return path",
+        "Handles finish, unfinish, error, and wallet return as UX hints only, then verifies status through the backend or webhook",
+        "Tests on real Android and iOS devices for wallet app-switch, unknown URL scheme handling, and cold-start recovery"
+      ]
+    },
+    {
       "id": "card-subscription-managed",
       "skills": ["integrate-midtrans-payments"],
       "query": "Use integrate-midtrans-payments to implement monthly card subscriptions. We want Midtrans to own the billing schedule and notify our app for every recurring charge.",

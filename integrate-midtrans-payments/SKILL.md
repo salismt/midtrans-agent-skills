@@ -1,6 +1,6 @@
 ---
 name: integrate-midtrans-payments
-description: "Use for Midtrans: Snap, Core API, BI-SNAP, QRIS, VA, GoPay, Payment Link, subscriptions/recurring, refunds, card UI/3DS/saved cards, OTC, webhooks, signatures, status, sandbox, settlement, go-live, or agent integration."
+description: "Use for Midtrans: Snap/mobile, Core, BI-SNAP, QRIS, VA, GoPay, Payment Link, subscriptions, refunds, card UI/3DS, OTC, webhooks, sandbox."
 license: BSD-3-Clause
 ---
 
@@ -73,6 +73,7 @@ Load only the references relevant to the merchant's request:
 | Any new Midtrans implementation, migration, or verification request | [merchant-readiness-preflight.md](references/merchant-readiness-preflight.md) and [project-adaptation.md](references/project-adaptation.md) |
 | Unsure whether to use Snap, Core API, BI-SNAP, Payment Link, or a hybrid | [merchant-decision-tree.md](references/merchant-decision-tree.md) |
 | Snap-only hosted checkout, Snap popup/redirect/embed, Snap webhook or status bugs | [snap-checkout.md](references/snap-checkout.md) |
+| Mobile apps/WebView/deeplinks | [mobile-sdk.md](references/mobile-sdk.md) |
 | BI-SNAP QRIS, VA, one-time Direct Debit, signatures, access tokens, notification dispatcher | [bisnap-core.md](references/bisnap-core.md) |
 | GoPay linking, tokenized wallet, GoPayLater, Binding Inquiry, account unlinking | [gopay-tokenization.md](references/gopay-tokenization.md) |
 | Payment Link via API or dashboard, invoice/chat collection, social commerce, no-code link sharing | [payment-links.md](references/payment-links.md) |

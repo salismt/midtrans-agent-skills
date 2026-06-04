@@ -323,6 +323,26 @@ Expected behavior:
 - Verifies recurring charge notifications with the Snap/Core signature formula and maps each attempt idempotently.
 - Separates disable/resume/cancel semantics for operator workflows.
 
+## Scenario 18: Mobile Snap WebView And GoPay Return
+
+Prompt:
+
+```text
+Use integrate-midtrans-payments to add Midtrans payment to our React Native app. We want Snap hosted checkout in a WebView and need GoPay app-switch return to work.
+```
+
+Expected behavior:
+
+- Loads `merchant-readiness-preflight.md`, `project-adaptation.md`, `snap-checkout.md`, and `mobile-sdk.md`.
+- Chooses Snap WebView as the default mobile path, not a deprecated native SDK or an unofficial React Native plugin.
+- Confirms the backend creates Snap tokens server-side and never exposes the server key to the app.
+- Persists local payment state before opening the WebView for background and cold-start recovery.
+- Opens the exact Snap `redirect_url` without rewriting, shortening, or encoding it.
+- Configures WebView or in-app browser behavior for JavaScript, cookies, Midtrans hosts, and wallet deeplinks.
+- Sets GoPay `callback_url` only after the merchant app deeplink is registered and tested; handles QR scan return separately.
+- Treats finish/unfinish/error/wallet return as UX hints, then verifies payment status through the backend or webhook.
+- Tests on real Android and iOS devices for wallet app-switch, unknown URL schemes, and cold-start recovery.
+
 ## Skill Quality Checklist
 
 - Does `SKILL.md` route before prescribing?
