@@ -209,9 +209,23 @@
         "Generates a deterministic refund_key per refund attempt (e.g., {order_id}-refund-{counter}) and persists it before the API call",
         "Takes a row-level lock or optimistic-concurrency token on the order before issuing the refund",
         "Maintains a total_refunded ledger and rejects refund attempts that would exceed gross_amount",
-        "Restricts the refund action to orders in transaction_status in {settlement, partial_refund, capture}",
+        "Restricts the refund action to orders that reached settlement or accepted partial_refund; treats capture as cancel/void unless current docs explicitly allow refund",
         "Handles the partial_refund webhook and reconciles to the local ledger keyed on refund_key",
-        "Does not assume a non-refundable method (e.g., some OTC) supports refund"
+        "Does not assume a non-refundable method (e.g., bank transfer or OTC) supports refund"
+      ]
+    },
+    {
+      "id": "payment-link-reusable",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to create a reusable Payment Link for our event registration. We expect 50 attendees to pay through the same link, and each registration should appear as a distinct order in our admin.",
+      "expected_behavior": [
+        "Loads references/payment-links.md",
+        "Sets usage_limit to 50 explicitly instead of relying on the API default",
+        "Persists the payment_url and order_id linkage before sending the link to attendees",
+        "Reconciles each reusable-link payment by transaction-level identifiers such as transaction_id or transaction-specific provider order id, not only by the Payment Link id",
+        "Reuses scripts/verify_snap_signature.sh against the Payment Link notification (same signature format as Snap)",
+        "Configures Payment Notification URL on the dashboard or per-transaction header",
+        "Plans an out-of-band cancel path (admin route) since customers cannot self-cancel a Payment Link"
       ]
     }
   ]

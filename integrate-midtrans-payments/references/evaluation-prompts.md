@@ -248,6 +248,43 @@ Expected behavior:
 - Reads the per-product status field (`additionalInfo.paymentFlagStatus` for VA; `latestTransactionStatus` for QR/debit) and reconciles on the right key.
 - Keeps notification handling idempotent and monotonic and redacts secrets, signatures, and full payloads from logs.
 
+## Scenario 14: Refund Idempotency
+
+Prompt:
+
+```text
+Use integrate-midtrans-payments to add a partial refund flow for our settled GoPay orders. The customer support tool may double-click the refund button.
+```
+
+Expected behavior:
+
+- Loads `refund-operations.md`.
+- Routes GoPay to the direct refund endpoint when current docs and merchant activation support it.
+- Generates and persists a deterministic `refund_key` before the provider call.
+- Takes a row-level lock or optimistic-concurrency token before issuing the refund.
+- Maintains a `total_refunded` ledger and rejects over-refund attempts.
+- Allows refund only from settled or accepted partial-refund states; treats `capture` as cancel/void unless current docs explicitly allow refund.
+- Handles `partial_refund` and `refund` notifications idempotently.
+- Does not assume bank transfer or OTC methods support Midtrans refund APIs.
+
+## Scenario 15: Reusable Payment Link
+
+Prompt:
+
+```text
+Use integrate-midtrans-payments to create a reusable Payment Link for our event registration. We expect 50 attendees to pay through the same link, and each registration should appear as a distinct order in our admin.
+```
+
+Expected behavior:
+
+- Loads `payment-links.md`.
+- Sets `usage_limit` to 50 explicitly instead of relying on the API default.
+- Persists the `payment_url`, Payment Link `order_id`, expiry, and local invoice/order linkage before sending the URL.
+- Reconciles reusable-link payments by transaction-level identifiers such as `transaction_id` or transaction-specific provider order id, not only by the Payment Link id.
+- Verifies notifications with the same Snap/Core signature formula and raw amount string.
+- Confirms dashboard Payment Notification URL and activated methods.
+- Plans an operator/admin cancellation path because customers cannot self-cancel the link page.
+
 ## Skill Quality Checklist
 
 - Does `SKILL.md` route before prescribing?
