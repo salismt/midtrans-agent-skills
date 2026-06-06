@@ -10,7 +10,7 @@
       "version": "0.2.3",
       "updated_at": "2026-05-29",
       "license": "BSD-3-Clause",
-      "description": "Use when working with Midtrans merchant payments: Snap, Core API, BI-SNAP, QRIS, virtual account, GoPay, GoPay tokenization, GoPayLater, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation.",
+      "description": "Use when working with Midtrans merchant payments: Snap, Core API, BI-SNAP, QRIS, virtual account, GoPay, GoPay tokenization, GoPayLater, Payment Link, refunds and partial refunds, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation.",
       "path": "integrate-midtrans-payments/",
       "entry": "SKILL.md",
       "files": [
@@ -25,6 +25,7 @@
         "references/merchant-readiness-preflight.md",
         "references/midtrans-runtime-patterns.md",
         "references/operations-and-go-live.md",
+        "references/payment-links.md",
         "references/project-adaptation.md",
         "references/refund-operations.md",
         "references/sandbox-interaction-helper.md",
@@ -48,6 +49,7 @@
         "assets/fixtures/bisnap-va-notification.json",
         "assets/fixtures/bisnap-debit-notification.json",
         "assets/fixtures/gopay-account-linking-notification.json",
+        "assets/fixtures/payment-link-notification.json",
         "assets/templates/env.example"
       ]
     }
