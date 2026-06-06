@@ -227,6 +227,21 @@
         "Configures Payment Notification URL on the dashboard or per-transaction header",
         "Plans an out-of-band cancel path (admin route) since customers cannot self-cancel a Payment Link"
       ]
+    },
+    {
+      "id": "core-api-card-custom-ui",
+      "skills": ["integrate-midtrans-payments"],
+      "query": "Use integrate-midtrans-payments to build a custom card payment UI with our own checkout. We need 3DS, saved-card one-click for returning customers, and Alfamart as a fallback method.",
+      "expected_behavior": [
+        "Routes to classic Core API for both card and Alfamart and loads references/core-api-classic.md (not Snap, not BI-SNAP)",
+        "Tokenizes the card on the frontend with MidtransNew3ds.getCardToken so PAN/CVV never reaches the merchant backend",
+        "Sends authentication: true on first card charge and verifies 3DS via backend status lookup, not frontend callbacks",
+        "Keeps saved-card, two-click, one-click, and recurring flows separate behind merchant activation and stores saved_token_id plus expiry safely",
+        "Charges Alfamart with payment_type: cstore and store: alfamart, persists the payment_code and expiry, and surfaces it on the customer-facing instruction page",
+        "Reuses scripts/verify_snap_signature.sh for Core API notifications (same SHA-512 signature as Snap)",
+        "Validates the api.* host vs app.* host distinction and uses api.* for Core API endpoints",
+        "Documents that OTC customer-resolution is usually manual and the operator runbook must cover it"
+      ]
     }
   ]
 }

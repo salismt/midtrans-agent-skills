@@ -285,6 +285,25 @@ Expected behavior:
 - Confirms dashboard Payment Notification URL and activated methods.
 - Plans an operator/admin cancellation path because customers cannot self-cancel the link page.
 
+## Scenario 16: Core API Custom Card UI
+
+Prompt:
+
+```text
+Use integrate-midtrans-payments to build a custom card checkout using Midtrans Core API. We also need Alfamart fallback for customers who do not use cards.
+```
+
+Expected behavior:
+
+- Loads `core-api-classic.md`, plus merchant readiness and project adaptation references.
+- Chooses classic Core API only because the merchant explicitly wants custom card UI and OTC fallback.
+- Tokenizes cards in the browser with `MidtransNew3ds.getCardToken`; raw PAN/CVV never reaches the merchant backend.
+- Charges from the backend with `POST /v2/charge`, `payment_type: "credit_card"`, 3DS enabled, and backend status verification after 3DS.
+- Keeps saved-card, two-click, one-click, and recurring flows separate and gated by merchant activation.
+- Implements `cstore` Alfamart/Indomaret charge handling with persisted `payment_code`, expiry, and customer instructions.
+- Reuses Snap/Core notification signature verification and idempotent status mapping.
+- Avoids BI-SNAP QRIS/VA request shapes for this classic Core API path.
+
 ## Skill Quality Checklist
 
 - Does `SKILL.md` route before prescribing?

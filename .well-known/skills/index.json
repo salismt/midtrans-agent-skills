@@ -10,7 +10,7 @@
       "version": "0.2.3",
       "updated_at": "2026-05-29",
       "license": "BSD-3-Clause",
-      "description": "Use when working with Midtrans merchant payments: Snap, Core API, BI-SNAP, QRIS, virtual account, GoPay, GoPay tokenization, GoPayLater, Payment Link, refunds and partial refunds, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation.",
+      "description": "Use when working with Midtrans merchant payments: Snap, Core API, custom card UI, 3DS, saved card, one-click, OTC, Alfamart, Indomaret, legacy virtual account, BI-SNAP, QRIS, GoPay, GoPay tokenization, GoPayLater, Payment Link, refunds and partial refunds, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation.",
       "path": "integrate-midtrans-payments/",
       "entry": "SKILL.md",
       "files": [
@@ -19,6 +19,7 @@
         "agents/openai.yaml",
         "references/agent-portability.md",
         "references/bisnap-core.md",
+        "references/core-api-classic.md",
         "references/evaluation-prompts.md",
         "references/gopay-tokenization.md",
         "references/merchant-decision-tree.md",

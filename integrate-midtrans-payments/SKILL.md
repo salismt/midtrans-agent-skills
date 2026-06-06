@@ -1,6 +1,6 @@
 ---
 name: integrate-midtrans-payments
-description: "Use when working with Midtrans merchant payments: Snap, Core API, BI-SNAP, QRIS, virtual account, GoPay, GoPay tokenization, GoPayLater, Payment Link, refunds and partial refunds, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation."
+description: "Use when working with Midtrans merchant payments: Snap, Core API, custom card UI, 3DS, saved card, one-click, OTC, Alfamart, Indomaret, legacy virtual account, BI-SNAP, QRIS, GoPay, GoPay tokenization, GoPayLater, Payment Link, refunds and partial refunds, payment callbacks, webhooks, signatures, status polling, sandbox testing, settlement state, go-live cutover, or AI-assisted payment gateway implementation."
 license: BSD-3-Clause
 ---
 
@@ -76,7 +76,8 @@ Load only the references relevant to the merchant's request:
 | BI-SNAP QRIS, VA, one-time Direct Debit, signatures, access tokens, notification dispatcher | [bisnap-core.md](references/bisnap-core.md) |
 | GoPay linking, tokenized wallet, GoPayLater, Binding Inquiry, account unlinking | [gopay-tokenization.md](references/gopay-tokenization.md) |
 | Payment Link via API or dashboard, invoice/chat collection, social commerce, no-code link sharing | [payment-links.md](references/payment-links.md) |
-| Classic Core API custom card/direct API paths, or any cross-product runtime pattern not covered above | [midtrans-runtime-patterns.md](references/midtrans-runtime-patterns.md) and current docs |
+| Classic Core API card/3DS/one-click/installment, OTC (Alfamart/Indomaret), legacy VA | [core-api-classic.md](references/core-api-classic.md) |
+| Cross-product runtime patterns and gotchas not covered above | [midtrans-runtime-patterns.md](references/midtrans-runtime-patterns.md) and current docs |
 | Issuing refunds (full or partial), `refund_key`/`partnerRefundNo` idempotency, BI-SNAP refund, refund webhook handling | [refund-operations.md](references/refund-operations.md) |
 | Sandbox/live cutover, callbacks, logging, secrets, smoke tests, production readiness | [operations-and-go-live.md](references/operations-and-go-live.md) |
 | Sandbox interaction, smoke tests, webhook replay, status polling, BI-SNAP signing dry-runs, credential-safe test commands | [sandbox-interaction-helper.md](references/sandbox-interaction-helper.md) and [scripts/README.md](scripts/README.md) |
