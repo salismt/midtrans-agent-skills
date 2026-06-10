@@ -1,0 +1,48 @@
+# Install as .github/workflows/docs-drift-watch.yml (requires a maintainer
+# with workflow scope, same as official-readiness.yml).
+#
+# Weekly watchdog: fetches https://docs.midtrans.com/llms.txt and every page
+# in docs/doc-sync/doc-dependencies.json, compares against the committed
+# snapshot, and opens (or comments on) an issue when the docs changed so the
+# affected skill references get reviewed.
+
+name: Docs drift watch
+
+on:
+  schedule:
+    - cron: "0 2 * * 1" # Mondays 02:00 UTC / 09:00 WIB
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare docs against snapshot
+        id: drift
+        run: |
+          set +e
+          ./tools/docs_drift_watch.py | tee drift-report.txt
+          code=${PIPESTATUS[0]}
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -ge 2 ]; then exit "$code"; fi
+
+      - name: Open or update drift issue
+        if: steps.drift.outputs.code == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="docs.midtrans.com drift detected"
+          body="$(printf 'Automated report from the docs drift watch workflow.\n\n```\n%s\n```\n\nReview the listed references, then run ./tools/docs_drift_watch.py --update and commit the refreshed snapshot.' "$(cat drift-report.txt)")"
+          existing="$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$title" --body "$body"
+          fi

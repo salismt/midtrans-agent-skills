@@ -1,0 +1,78 @@
+{
+  "_comment": "Maps each skill reference to the docs.midtrans.com pages it was written against. tools/docs_drift_watch.py fetches these (plus llms.txt) and compares content hashes with doc-snapshot.json; a changed page means the matching reference needs review. Use the .md page variants that llms.txt links.",
+  "merchant-decision-tree.md": [
+    "https://docs.midtrans.com/docs/payment-methods.md",
+    "https://docs.midtrans.com/docs/snap.md",
+    "https://docs.midtrans.com/docs/core-api.md",
+    "https://docs.midtrans.com/docs/payment-link-overview.md"
+  ],
+  "snap-checkout.md": [
+    "https://docs.midtrans.com/docs/snap-preparation.md",
+    "https://docs.midtrans.com/docs/snap-snap-integration-guide.md",
+    "https://docs.midtrans.com/docs/snap-advanced-feature.md",
+    "https://docs.midtrans.com/reference/snap-api-overview.md",
+    "https://docs.midtrans.com/reference/snap-js.md",
+    "https://docs.midtrans.com/reference/cancel-a-snap-session.md",
+    "https://docs.midtrans.com/reference/expire-a-snap-session.md",
+    "https://docs.midtrans.com/docs/https-notification-webhooks.md"
+  ],
+  "mobile-sdk.md": [
+    "https://docs.midtrans.com/docs/mobile.md",
+    "https://docs.midtrans.com/docs/does-midtrans-support-flutter-react-native-or-other-hybrid-non-native-mobile-framework.md"
+  ],
+  "bisnap-core.md": [
+    "https://docs.midtrans.com/reference/core-api-snap-open-api-overview.md",
+    "https://docs.midtrans.com/reference/access-token-api.md",
+    "https://docs.midtrans.com/reference/bi-snap-security-architecture.md",
+    "https://docs.midtrans.com/reference/mpm-api-qris.md",
+    "https://docs.midtrans.com/reference/payment-notification-api.md",
+    "https://docs.midtrans.com/reference/testing-bi-snap-on-sandbox-environment.md"
+  ],
+  "gopay-tokenization.md": [
+    "https://docs.midtrans.com/reference/gopay-tokenization.md",
+    "https://docs.midtrans.com/reference/auth-payment-api-gopay-tokenization.md",
+    "https://docs.midtrans.com/reference/direct-debit-api-gopay-tokenization.md",
+    "https://docs.midtrans.com/reference/account-linking-unlinking-notification.md",
+    "https://docs.midtrans.com/reference/testing-gopay-tokenization-bi-snap-on-sandbox.md"
+  ],
+  "core-api-classic.md": [
+    "https://docs.midtrans.com/docs/coreapi-card-payment-integration.md",
+    "https://docs.midtrans.com/docs/coreapi-core-api-bank-transfer-integration.md",
+    "https://docs.midtrans.com/docs/coreapi-e-money-integration.md",
+    "https://docs.midtrans.com/docs/coreapi-over-the-counter-payment-integration.md",
+    "https://docs.midtrans.com/docs/coreapi-advanced-features.md",
+    "https://docs.midtrans.com/docs/one-click-two-clicks-and-recurring-transaction.md"
+  ],
+  "payment-links.md": [
+    "https://docs.midtrans.com/docs/payment-link-overview.md",
+    "https://docs.midtrans.com/docs/payment-link-via-api.md"
+  ],
+  "subscriptions.md": [
+    "https://docs.midtrans.com/reference/create-subscription.md",
+    "https://docs.midtrans.com/reference/update-subscription.md",
+    "https://docs.midtrans.com/reference/get-subscription.md",
+    "https://docs.midtrans.com/reference/disable-subscription.md",
+    "https://docs.midtrans.com/reference/cancel-subscription.md",
+    "https://docs.midtrans.com/reference/subscription-schedule-object.md"
+  ],
+  "refund-operations.md": [
+    "https://docs.midtrans.com/docs/introduction-to-refund.md",
+    "https://docs.midtrans.com/reference/refund-transaction.md",
+    "https://docs.midtrans.com/reference/direct-refund-transaction.md"
+  ],
+  "midtrans-runtime-patterns.md": [
+    "https://docs.midtrans.com/docs/transaction-status-cycle.md",
+    "https://docs.midtrans.com/reference/transaction-status.md",
+    "https://docs.midtrans.com/reference/http-notification.md"
+  ],
+  "operations-and-go-live.md": [
+    "https://docs.midtrans.com/docs/switching-to-production-mode.md",
+    "https://docs.midtrans.com/docs/ip-address.md",
+    "https://docs.midtrans.com/reference/setting-up-notification-url.md",
+    "https://docs.midtrans.com/reference/best-practices-to-handle-notification.md"
+  ],
+  "sandbox-interaction-helper.md": [
+    "https://docs.midtrans.com/docs/testing-payment-on-sandbox.md",
+    "https://docs.midtrans.com/reference/testing-bi-snap-on-sandbox-environment.md"
+  ]
+}

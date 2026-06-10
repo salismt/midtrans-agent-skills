@@ -250,7 +250,16 @@ def check_scripts() -> None:
             fail(f"script is not executable: {path.relative_to(ROOT)}")
     for path in shell_scripts:
         require_success(["bash", "-n", str(path)])
-    require_success([sys.executable, "-m", "py_compile", *map(str, python_scripts), str(Path(__file__).resolve())])
+    require_success(
+        [
+            sys.executable,
+            "-m",
+            "py_compile",
+            *map(str, python_scripts),
+            str(Path(__file__).resolve()),
+            str(ROOT / "tools" / "docs_drift_watch.py"),
+        ]
+    )
     ok("script syntax, compile, and executable bits")
 
 
@@ -304,6 +313,29 @@ def check_safety_behaviors() -> None:
     if public_key.returncode != 2 or "Traceback" in public_key.stderr or "invalid public key input" not in public_key.stderr:
         fail("malformed BI-SNAP public key did not produce the expected clean error")
     ok("credential and target safety behaviors")
+
+
+def check_doc_sync() -> None:
+    manifest_path = ROOT / "docs" / "doc-sync" / "doc-dependencies.json"
+    snapshot_path = ROOT / "docs" / "doc-sync" / "doc-snapshot.json"
+    manifest = load_json(manifest_path)
+    if not isinstance(manifest, dict):
+        fail("doc-dependencies.json must be a JSON object")
+    entries = {key: value for key, value in manifest.items() if not key.startswith("_")}
+    if not entries:
+        fail("doc-dependencies.json lists no references")
+    for reference, urls in entries.items():
+        if not (SKILL / "references" / reference).is_file():
+            fail(f"doc-dependencies.json names unknown reference: {reference}")
+        if not isinstance(urls, list) or not urls:
+            fail(f"doc-dependencies.json entry needs at least one URL: {reference}")
+        for url in urls:
+            if not DOC_LINK_RE.fullmatch(url):
+                fail(f"doc-dependencies.json has a non-docs URL for {reference}: {url}")
+    snapshot = load_json(snapshot_path)
+    if not isinstance(snapshot, dict) or not snapshot.get("hashes"):
+        fail("doc-snapshot.json must carry page hashes; run tools/docs_drift_watch.py --update")
+    ok("doc-sync manifest and snapshot")
 
 
 def check_doc_links() -> None:
@@ -388,6 +420,7 @@ def main() -> int:
     check_scripts()
     check_snap_fixtures()
     check_safety_behaviors()
+    check_doc_sync()
     if args.check_doc_links:
         check_doc_links()
     print("official-readiness local checks passed")

@@ -101,6 +101,14 @@ a repository maintainer with `workflow` scope should install it under
 Use `tools/build_publication_bundle.py` to produce the exact hosted index and
 skill files for the official docs/repository release.
 
+Docs freshness is watched, not assumed: `docs/doc-sync/doc-dependencies.json`
+maps each reference to the docs.midtrans.com pages it was written against, and
+`tools/docs_drift_watch.py` compares those pages (plus the full `llms.txt`
+page list) with the committed snapshot. Install
+`docs/github-actions/docs-drift-watch.yml` as a scheduled workflow so doc
+changes open an issue naming the references to review; after updating them,
+run `./tools/docs_drift_watch.py --update` and commit the snapshot.
+
 ## Repository layout
 
 ```text
@@ -143,8 +151,12 @@ integrate-midtrans-payments/
     templates/env.example           # Midtrans env starter template
 .well-known/skills/index.json       # draft hosted catalog manifest
 docs/official-release-readiness.md  # publication and evidence gate
+docs/doc-sync/doc-dependencies.json # reference-to-docs-page dependency map
+docs/doc-sync/doc-snapshot.json     # hashed docs snapshot for drift detection
 docs/github-actions/official-readiness.yml # CI readiness workflow template
+docs/github-actions/docs-drift-watch.yml   # scheduled docs drift workflow template
 tools/check_official_readiness.py   # local release checker
+tools/docs_drift_watch.py           # docs.midtrans.com drift watchdog
 tools/build_pressure_pack.py        # Claude/Codex pressure-pack generator
 tools/validate_pressure_evidence.py # completed evidence validator
 tools/build_publication_bundle.py   # hosted publication bundle builder
