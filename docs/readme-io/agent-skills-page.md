@@ -24,10 +24,10 @@ The skill covers product selection (Snap, Core API, BI-SNAP, Payment Link), merc
 With the [skills CLI](https://github.com/vercel-labs/skills) (works with Claude Code, Codex, Cursor, and other supported agents):
 
 ```bash
-npx skills add https://github.com/midtrans/midtrans-agent-skills --yes
+npx skills add https://github.com/veritrans/midtrans-agent-skills --yes
 ```
 
-Or copy the folder manually from the [midtrans/midtrans-agent-skills](https://github.com/midtrans/midtrans-agent-skills) repository:
+Or copy the folder manually from the [veritrans/midtrans-agent-skills](https://github.com/veritrans/midtrans-agent-skills) repository:
 
 | Agent | Project location |
 | --- | --- |
@@ -62,4 +62,4 @@ The complete page index lives at [https://docs.midtrans.com/llms.txt](https://do
 
 A Midtrans MCP server for authenticated sandbox interaction is a separate, later phase; the agent skill stays the lightweight no-credentials option.
 
-Found a misroute or a gap in the skill? File an issue at [github.com/midtrans/midtrans-agent-skills](https://github.com/midtrans/midtrans-agent-skills/issues).
+Found a misroute or a gap in the skill? File an issue at [github.com/veritrans/midtrans-agent-skills](https://github.com/veritrans/midtrans-agent-skills/issues).

@@ -14,7 +14,7 @@ Before recommending a Midtrans product or writing code, complete the merchant re
 
 Use current Midtrans docs each time. Search `https://docs.midtrans.com/llms.txt` first, then open product pages for the methods being implemented; llms.txt links the `.md` variant of every page — fetch those instead of the HTML.
 
-Precedence: live docs.midtrans.com content wins over this skill for endpoints, parameters, field names, and product availability; this skill wins for integration discipline (state model, idempotency, signature hygiene, verification). Skill version 0.3.0, validated against docs.midtrans.com on 2026-06-10. If a current docs page contradicts this skill, follow the docs and ask the merchant to report the mismatch at https://github.com/midtrans/midtrans-agent-skills/issues.
+Precedence: live docs.midtrans.com content wins over this skill for endpoints, parameters, field names, and product availability; this skill wins for integration discipline (state model, idempotency, signature hygiene, verification). Skill version 0.3.0, validated against docs.midtrans.com on 2026-06-10. If a current docs page contradicts this skill, follow the docs and ask the merchant to report the mismatch at https://github.com/veritrans/midtrans-agent-skills/issues.
 
 ## Workflow
 

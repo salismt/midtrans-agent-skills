@@ -2,7 +2,7 @@
   "version": "0.3.0",
   "updated_at": "2026-06-10",
   "homepage": "https://docs.midtrans.com",
-  "repository": "https://github.com/midtrans/midtrans-agent-skills",
+  "repository": "https://github.com/veritrans/midtrans-agent-skills",
   "license": "BSD-3-Clause",
   "skills": [
     {

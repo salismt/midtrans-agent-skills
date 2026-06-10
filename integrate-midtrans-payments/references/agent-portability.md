@@ -89,12 +89,12 @@ For Cursor, prefer a project rule in `.cursor/rules/` or `AGENTS.md` that points
 The canonical skill source is the public GitHub repository, installable today:
 
 ```bash
-npx skills add https://github.com/midtrans/midtrans-agent-skills --yes
+npx skills add https://github.com/veritrans/midtrans-agent-skills --yes
 ```
 
 `docs.midtrans.com` runs on ReadMe, which auto-generates `https://docs.midtrans.com/llms.txt` from published pages but cannot serve repository files such as `/.well-known/skills/index.json`. Distribution therefore splits:
 
-- The machine-readable catalog is served from the repository: `https://raw.githubusercontent.com/midtrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
+- The machine-readable catalog is served from the repository: `https://raw.githubusercontent.com/veritrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
 - The docs site publishes a "Build on Midtrans with AI" page (source: `docs/readme-io/agent-skills-page.md` in the repository). Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs discover the skill organically.
 
 Publishing requirements:

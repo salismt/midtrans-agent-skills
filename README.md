@@ -17,7 +17,7 @@ The skill is an adaptive router plus product playbooks. Agents first classify th
 The skills CLI installs straight from this repository for Claude Code, Codex, Cursor, and other supported agents:
 
 ```bash
-npx skills add https://github.com/midtrans/midtrans-agent-skills --yes
+npx skills add https://github.com/veritrans/midtrans-agent-skills --yes
 ```
 
 Manual copy works everywhere else:
@@ -89,7 +89,7 @@ Authoritative source of truth: [https://docs.midtrans.com/llms.txt](https://docs
 `docs.midtrans.com` runs on ReadMe, which auto-generates `llms.txt` from published pages but cannot serve repository files such as `/.well-known/skills/index.json`. Distribution therefore splits:
 
 - **Canonical skill source**: this GitHub repository (installable today via `npx skills add`).
-- **Machine-readable catalog**: `https://raw.githubusercontent.com/midtrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
+- **Machine-readable catalog**: `https://raw.githubusercontent.com/veritrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
 - **Docs discovery**: publish the "Build on Midtrans with AI" page from [docs/readme-io/agent-skills-page.md](docs/readme-io/agent-skills-page.md) on docs.midtrans.com. Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs find the skill organically.
 
 Still planned but **not yet shipped**:
