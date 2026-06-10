@@ -107,7 +107,11 @@ def validate_index_completeness(index: dict) -> None:
         for _, target in indexed_files(index)
         if str(target).startswith("integrate-midtrans-payments/")
     )
-    actual = sorted(str(path.relative_to(SKILL_ROOT)) for path in SKILL_ROOT.rglob("*") if path.is_file())
+    actual = sorted(
+        str(path.relative_to(SKILL_ROOT))
+        for path in SKILL_ROOT.rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts
+    )
     missing = [path for path in listed if not (SKILL_ROOT / path).is_file()]
     extra = [path for path in actual if path not in listed]
     if missing or extra:

@@ -117,13 +117,34 @@ def check_versions_and_manifest() -> None:
     files = skill_entry.get("files")
     if not isinstance(files, list):
         fail("index skill entry must include files list")
-    actual = sorted(str(path.relative_to(SKILL)) for path in SKILL.rglob("*") if path.is_file())
+    actual = sorted(
+        str(path.relative_to(SKILL))
+        for path in SKILL.rglob("*")
+        if path.is_file() and "__pycache__" not in path.parts
+    )
     listed = sorted(files)
     missing = [path for path in listed if not (SKILL / path).is_file()]
     extra = [path for path in actual if path not in listed]
     if missing or extra:
         fail(f"manifest mismatch; missing={missing}, extra={extra}")
     ok(f"catalog manifest and version {versions.pop()}")
+
+
+def check_skill_stamp() -> None:
+    index = load_json(INDEX)
+    if not isinstance(index, dict):
+        fail("index must be a JSON object")
+    skill_entry = index["skills"][0]
+    text = SKILL_MD.read_text(encoding="utf-8")
+    frontmatter = parse_frontmatter(text)
+    if frontmatter.get("description") != skill_entry.get("description"):
+        fail("SKILL.md description and catalog description differ")
+    version = index.get("version")
+    if f"Skill version {version}" not in text:
+        fail(f"SKILL.md body must carry the stamp 'Skill version {version}'")
+    if str(index.get("updated_at")) not in text:
+        fail("SKILL.md validated-as-of date must match catalog updated_at")
+    ok("SKILL.md stamp and description match catalog")
 
 
 def check_layout_sync() -> None:
@@ -357,6 +378,7 @@ def main() -> int:
 
     check_skill_metadata()
     check_versions_and_manifest()
+    check_skill_stamp()
     check_layout_sync()
     check_license()
     check_json_files()
