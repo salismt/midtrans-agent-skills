@@ -6,6 +6,16 @@ Always refresh current docs from `https://docs.midtrans.com/llms.txt`, especiall
 
 Before building mobile code, complete [merchant-readiness-preflight.md](merchant-readiness-preflight.md). Confirm the merchant has sandbox credentials, active methods, a public backend token endpoint, registered app schemes/universal links, real-device test access, and a clear proof level.
 
+## Contents
+
+- Choose The Mobile Strategy
+- Snap WebView / In-App Browser
+- Core API Custom Mobile UI
+- Native Mobile SDK
+- Hybrid Frameworks
+- Mobile-Specific Gotchas
+- Mobile Production Checklist
+
 ## Choose The Mobile Strategy
 
 | Strategy | Use when | Cautions |

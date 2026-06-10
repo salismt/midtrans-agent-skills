@@ -6,6 +6,19 @@ Always refresh current docs from `https://docs.midtrans.com/llms.txt`, especiall
 
 Before building Core API code, complete [merchant-readiness-preflight.md](merchant-readiness-preflight.md). Confirm sandbox and production keys, PCI scope acceptance for cards, dashboard 3DS/Midtrans Lock activation, and the full method-by-method ownership map (this skill assumes Core API only for the methods listed below).
 
+## Contents
+
+- Product Fit
+- Authentication
+- Card Payment Flow
+- BIN API
+- Saved Card / One-Click / Subsequent
+- OTC Payments
+- Legacy Virtual Account
+- Status Mapping
+- Common Gotchas
+- Core API Production Checklist
+
 ## Product Fit
 
 Choose the classic Core API only when the merchant must own the customer-facing payment UI for:

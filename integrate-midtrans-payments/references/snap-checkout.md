@@ -6,6 +6,21 @@ Always refresh current docs from `https://docs.midtrans.com/llms.txt`, especiall
 
 Before building Snap code, complete [merchant-readiness-preflight.md](merchant-readiness-preflight.md). At minimum confirm account/MID state, sandbox keys, Snap method activation, display mode, dashboard notification URL, redirect URLs, expected customer flow, retry behavior, and the proof level required for this engagement.
 
+## Contents
+
+- Product Fit
+- Snap Implementation Flow
+- Token Creation Contract
+- Per-Transaction Notification Routing
+- Snap State Model
+- Frontend Display Modes
+- Webhook And Status Handling
+- Server-Side Endpoints Used With Snap
+- Retry, Expiry, And Recovery
+- Advanced Snap Feature Catalog
+- Snap Troubleshooting Matrix
+- Snap Production Checklist
+
 ## Product Fit
 
 Use Snap when the merchant accepts Midtrans-hosted payment UI, wants the fastest integration, wants card data off merchant servers, or wants broad payment method coverage without owning method-specific payment UI.

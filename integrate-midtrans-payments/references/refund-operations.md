@@ -6,6 +6,17 @@ Always refresh current docs from `https://docs.midtrans.com/llms.txt`, especiall
 
 Before building refund code, complete [merchant-readiness-preflight.md](merchant-readiness-preflight.md). Confirm which payment methods the merchant supports and which actually allow refund — not all methods refund. Current docs list bank transfer and OTC paths as not refundable through Midtrans refund APIs, so route those to merchant-side manual resolution instead of calling refund endpoints.
 
+## Contents
+
+- Three Refund Surfaces
+- Snap And Classic Core API Refund
+- BI-SNAP Refund
+- Refund State Transitions
+- Idempotency And Locking
+- Per-Method Refund Windows
+- Common Gotchas
+- Refund Production Checklist
+
 ## Three Refund Surfaces
 
 | Surface | Endpoint | Use when |

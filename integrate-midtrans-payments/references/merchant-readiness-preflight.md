@@ -4,6 +4,17 @@ Use this before product routing, implementation, sandbox proof, or go-live advic
 
 The goal is to prevent an agent from building a technically clean integration for a merchant state that does not exist yet: no Midtrans account, no sandbox keys, inactive methods, missing callback URLs, unclear payment flow, or no agreement on what proof counts.
 
+## Contents
+
+- Required Output Before Code
+- Account And Dashboard
+- Credentials And Environment
+- Flow And Product Scope
+- Activation And Method Gating
+- Callback And Redirect Readiness
+- Proof Level
+- Example: Invoice Snap Flow
+
 ## Required Output Before Code
 
 Before editing code, produce a short readiness summary:

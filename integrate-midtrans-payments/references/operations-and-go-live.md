@@ -4,6 +4,16 @@ Use this for sandbox testing, live cutover, callback setup, observability, secre
 
 Refresh current Midtrans product/API details from `https://docs.midtrans.com/llms.txt` before sandbox or live cutover work.
 
+## Contents
+
+- Environment And Secrets
+- Callback URLs
+- TLS And Webhook Endpoint Compatibility
+- Midtrans Source IP Allowlist
+- Structured Logging
+- Sandbox Smoke
+- Go-Live Checklist
+
 ## Environment And Secrets
 
 Keep sandbox and production isolated:

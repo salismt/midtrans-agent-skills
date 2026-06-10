@@ -6,6 +6,16 @@ Always refresh current docs from `https://docs.midtrans.com/llms.txt`, especiall
 
 Before building subscription code, complete [merchant-readiness-preflight.md](merchant-readiness-preflight.md). Confirm dashboard activation for subscriptions (a separate enablement from regular Snap/Core), the Recurring Notification URL is configured, and the merchant agreement permits no-customer-present charges for the chosen method.
 
+## Contents
+
+- Two Recurring Models
+- Midtrans-Managed Subscription API
+- Merchant-Driven Recurring
+- Notification Routing
+- State Model
+- Common Gotchas
+- Subscription Production Checklist
+
 ## Two Recurring Models
 
 Midtrans supports two ways to charge on a schedule. They are not interchangeable; agents must pick one and stick with it.

@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "updated_at": "2026-06-10",
   "homepage": "https://docs.midtrans.com",
   "repository": "https://github.com/veritrans/midtrans-agent-skills",
@@ -7,10 +7,10 @@
   "skills": [
     {
       "name": "integrate-midtrans-payments",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "updated_at": "2026-06-10",
       "license": "BSD-3-Clause",
-      "description": "Use when working with the Midtrans payment gateway: Snap checkout (popup, redirect, embed, mobile WebView), Core API, BI-SNAP, QRIS, virtual accounts, GoPay, GoPay tokenization, GoPayLater, ShopeePay, DANA, card and 3DS, Alfamart/Indomaret OTC, Payment Link, Subscription API and recurring billing, refunds, webhooks and HTTP notifications, signature verification, status polling, settlement, sandbox testing, go-live cutover, and AI-assisted payment integration for Indonesian merchants.",
+      "description": "Guides Midtrans payment gateway integrations end to end: product selection, implementation, debugging, review, and sandbox verification. Use when working with Snap checkout (popup, redirect, embed, mobile WebView), Core API, BI-SNAP, QRIS, virtual accounts, GoPay, GoPay tokenization, GoPayLater, ShopeePay, DANA, card and 3DS, Alfamart/Indomaret OTC, Payment Link, Subscription API and recurring billing, refunds, webhooks and HTTP notifications, signature verification, status polling, settlement, sandbox testing, go-live cutover, or AI-assisted payment integration for Indonesian merchants.",
       "path": "integrate-midtrans-payments/",
       "entry": "SKILL.md",
       "files": [

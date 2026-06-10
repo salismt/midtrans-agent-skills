@@ -56,6 +56,14 @@ integrate-midtrans-payments/
 
 Keep the skill standard-first: `name`, `description`, Markdown body, and relative references. Avoid host-specific frontmatter unless publishing to a host that requires it. `agents/openai.yaml` is an optional Codex/OpenAI interface hint — regenerate it with the skill-creator `generate_openai_yaml.py` script when fields change.
 
+## Contents
+
+- Native Skill Hosts
+- Cursor And Tools Without Native SKILL.md Loading
+- Packaging Guidance For Merchants
+- Official Hosted Distribution
+- Prompt Examples
+
 ## Native Skill Hosts
 
 | Host | Project location | User/global location | Notes |
@@ -74,6 +82,8 @@ When asked to implement, debug, or review Midtrans payment integration, read and
 ```
 
 For Cursor, prefer a project rule in `.cursor/rules/` or `AGENTS.md` that points to the skill. Keep the rule short so the detailed guidance stays in the skill.
+
+Some hosts run skills without network access (skills uploaded to the Claude API code-execution environment; claude.ai depending on settings). On those hosts the per-engagement `https://docs.midtrans.com/llms.txt` refresh is impossible: rely on the bundled references, and state explicitly that live-docs freshness was not verified for this session.
 
 ## Packaging Guidance For Merchants
 

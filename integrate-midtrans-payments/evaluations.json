@@ -1,7 +1,7 @@
 {
   "_comment": "Structured evaluations for the integrate-midtrans-payments skill, in the schema published by Anthropic at https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices. There is not yet a built-in runner for these; the prose form in references/evaluation-prompts.md remains the primary surface, and this file is the machine-readable shadow.",
   "skill": "integrate-midtrans-payments",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "evaluations": [
     {
       "id": "snap-only",

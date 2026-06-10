@@ -4,6 +4,31 @@ Use these pressure scenarios when improving or reviewing this skill. A good answ
 
 Refresh current Midtrans product/API details from `https://docs.midtrans.com/llms.txt` before judging product-specific behavior.
 
+## Contents
+
+- Scenario 1: Snap Only
+- Scenario 1A: Snap Implementation Depth
+- Scenario 1B: Snap Advanced Feature Review
+- Scenario 2: Invoice Preflight
+- Scenario 3: BI-SNAP QRIS And VA Only
+- Scenario 4: GoPayLater
+- Scenario 5: Webhook Does Not Update Orders
+- Scenario 6: Docs-Only Agent Overfits
+- Scenario 7: Sandbox Smoke Requested
+- Scenario 8: Production Key Safety
+- Scenario 9: Webhook Fixture Diagnosis
+- Scenario 10: BI-SNAP Signing Dry Run
+- Scenario 11: No Sandbox Credentials Available
+- Scenario 12: BI-SNAP Implementation Depth
+- Scenario 13: BI-SNAP Notification Routing And Signature
+- Scenario 14: Refund Idempotency
+- Scenario 15: Reusable Payment Link
+- Scenario 16: Core API Custom Card UI
+- Scenario 17: Managed Card Subscription
+- Scenario 18: Mobile Snap WebView And GoPay Return
+- Scenario 19: Production Webhooks Never Arrive
+- Skill Quality Checklist
+
 ## Scenario 1: Snap Only
 
 Prompt:

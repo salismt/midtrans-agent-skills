@@ -1,6 +1,6 @@
 ---
 name: integrate-midtrans-payments
-description: "Use when working with the Midtrans payment gateway: Snap checkout (popup, redirect, embed, mobile WebView), Core API, BI-SNAP, QRIS, virtual accounts, GoPay, GoPay tokenization, GoPayLater, ShopeePay, DANA, card and 3DS, Alfamart/Indomaret OTC, Payment Link, Subscription API and recurring billing, refunds, webhooks and HTTP notifications, signature verification, status polling, settlement, sandbox testing, go-live cutover, and AI-assisted payment integration for Indonesian merchants."
+description: "Guides Midtrans payment gateway integrations end to end: product selection, implementation, debugging, review, and sandbox verification. Use when working with Snap checkout (popup, redirect, embed, mobile WebView), Core API, BI-SNAP, QRIS, virtual accounts, GoPay, GoPay tokenization, GoPayLater, ShopeePay, DANA, card and 3DS, Alfamart/Indomaret OTC, Payment Link, Subscription API and recurring billing, refunds, webhooks and HTTP notifications, signature verification, status polling, settlement, sandbox testing, go-live cutover, or AI-assisted payment integration for Indonesian merchants."
 license: BSD-3-Clause
 ---
 
@@ -14,7 +14,7 @@ Before recommending a Midtrans product or writing code, complete the merchant re
 
 Use current Midtrans docs each time. Search `https://docs.midtrans.com/llms.txt` first, then open product pages for the methods being implemented; llms.txt links the `.md` variant of every page — fetch those instead of the HTML.
 
-Precedence: live docs.midtrans.com content wins over this skill for endpoints, parameters, field names, and product availability; this skill wins for integration discipline (state model, idempotency, signature hygiene, verification). Skill version 0.3.0, validated against docs.midtrans.com on 2026-06-10. If a current docs page contradicts this skill, follow the docs and ask the merchant to report the mismatch at https://github.com/veritrans/midtrans-agent-skills/issues.
+Precedence: live docs.midtrans.com content wins over this skill for endpoints, parameters, field names, and product availability; this skill wins for integration discipline (state model, idempotency, signature hygiene, verification). Skill version 0.3.1, validated against docs.midtrans.com on 2026-06-10. If a current docs page contradicts this skill, follow the docs and ask the merchant to report the mismatch at https://github.com/veritrans/midtrans-agent-skills/issues.
 
 ## Workflow
 
