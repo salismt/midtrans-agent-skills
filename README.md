@@ -12,7 +12,15 @@ The skill is an adaptive router plus product playbooks. Agents first classify th
 
 ## Install today
 
-Manual copy is the supported install path while the hosted index is staged.
+### Skills CLI (recommended)
+
+The skills CLI installs straight from this repository for Claude Code, Codex, Cursor, and other supported agents:
+
+```bash
+npx skills add https://github.com/midtrans/midtrans-agent-skills --yes
+```
+
+Manual copy works everywhere else:
 
 ### Claude Code
 
@@ -76,12 +84,16 @@ The skill always begins with merchant readiness and project inspection. It will 
 
 Authoritative source of truth: [https://docs.midtrans.com/llms.txt](https://docs.midtrans.com/llms.txt). The skill refreshes against current Midtrans docs at every engagement; the local files capture stable patterns and integration lessons, not API surface details.
 
-## Roadmap
+## Hosted distribution
 
-These are planned but **not yet shipped**:
+`docs.midtrans.com` runs on ReadMe, which auto-generates `llms.txt` from published pages but cannot serve repository files such as `/.well-known/skills/index.json`. Distribution therefore splits:
 
-- Hosted skill catalog at `https://docs.midtrans.com/.well-known/skills/index.json` (this repo ships a draft you can publish from).
-- `npx skills add https://docs.midtrans.com --yes` install path, matching the Stripe AI Docs pattern.
+- **Canonical skill source**: this GitHub repository (installable today via `npx skills add`).
+- **Machine-readable catalog**: `https://raw.githubusercontent.com/midtrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
+- **Docs discovery**: publish the "AI Agent Skills" page from [docs/readme-io/agent-skills-page.md](docs/readme-io/agent-skills-page.md) on docs.midtrans.com. Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs find the skill organically.
+
+Still planned but **not yet shipped**:
+
 - Versioned `@midtrans/agent-skills` npm package for pinned installs.
 - Midtrans MCP server for authenticated sandbox interaction. The MCP phase will be additive — skills stay as the lightweight, no-credentials option.
 
@@ -151,6 +163,7 @@ integrate-midtrans-payments/
     templates/env.example           # Midtrans env starter template
 .well-known/skills/index.json       # draft hosted catalog manifest
 docs/official-release-readiness.md  # publication and evidence gate
+docs/readme-io/agent-skills-page.md # ready-to-publish docs.midtrans.com page
 docs/doc-sync/doc-dependencies.json # reference-to-docs-page dependency map
 docs/doc-sync/doc-snapshot.json     # hashed docs snapshot for drift detection
 docs/github-actions/official-readiness.yml # CI readiness workflow template

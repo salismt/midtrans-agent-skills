@@ -86,22 +86,20 @@ For Cursor, prefer a project rule in `.cursor/rules/` or `AGENTS.md` that points
 
 ## Official Hosted Distribution
 
-Target a Stripe-like public install path for the official Midtrans release:
+The canonical skill source is the public GitHub repository, installable today:
 
 ```bash
-npx skills add https://docs.midtrans.com --yes
+npx skills add https://github.com/midtrans/midtrans-agent-skills --yes
 ```
 
-The hosted index should live at:
+`docs.midtrans.com` runs on ReadMe, which auto-generates `https://docs.midtrans.com/llms.txt` from published pages but cannot serve repository files such as `/.well-known/skills/index.json`. Distribution therefore splits:
 
-```text
-https://docs.midtrans.com/.well-known/skills/index.json
-```
+- The machine-readable catalog is served from the repository: `https://raw.githubusercontent.com/midtrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
+- The docs site publishes an "AI Agent Skills" page (source: `docs/readme-io/agent-skills-page.md` in the repository). Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs discover the skill organically.
 
 Publishing requirements:
 
-- The index points to the versioned `integrate-midtrans-payments/SKILL.md` folder.
-- The public docs page explains native install options for Claude Code, Codex-compatible agents, Cursor, Copilot, OpenCode, and manual users.
+- The docs page explains native install options for Claude Code, Codex-compatible agents, Cursor, Copilot, OpenCode, and manual users.
 - The docs page states that manually copied skills do not auto-update.
 - The hosted skill links to `https://docs.midtrans.com/llms.txt` and product docs instead of copying entire API references.
 - Release notes and changelog live outside `SKILL.md`.
