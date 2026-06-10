@@ -90,7 +90,7 @@ Authoritative source of truth: [https://docs.midtrans.com/llms.txt](https://docs
 
 - **Canonical skill source**: this GitHub repository (installable today via `npx skills add`).
 - **Machine-readable catalog**: `https://raw.githubusercontent.com/midtrans/midtrans-agent-skills/main/.well-known/skills/index.json`.
-- **Docs discovery**: publish the "AI Agent Skills" page from [docs/readme-io/agent-skills-page.md](docs/readme-io/agent-skills-page.md) on docs.midtrans.com. Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs find the skill organically.
+- **Docs discovery**: publish the "Build on Midtrans with AI" page from [docs/readme-io/agent-skills-page.md](docs/readme-io/agent-skills-page.md) on docs.midtrans.com. Once published, ReadMe lists it in `llms.txt` automatically, so agents reading Midtrans docs find the skill organically.
 
 Still planned but **not yet shipped**:
 

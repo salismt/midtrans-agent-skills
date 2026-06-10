@@ -1,24 +1,25 @@
 ---
-title: AI Agent Skills
-excerpt: Official Midtrans skill for AI coding agents — Claude Code, Codex, Copilot, Cursor, OpenCode, and more.
+title: Build on Midtrans with AI
+excerpt: Use AI coding agents to integrate Midtrans — official agent skill, plain-text docs, and llms.txt.
 ---
 
-> Ready-to-publish source for the docs.midtrans.com "AI Agent Skills" page.
-> Create it in the Documentation section under "Technical Reference &
-> Developer Tools", as a sibling of "Library & Plugins" and "Postman
-> Collection", with slug `ai-agent-skills`. Set the page title and excerpt
-> from the frontmatter above, then paste only the body below this note.
-> ReadMe adds the published page to https://docs.midtrans.com/llms.txt
-> automatically, so coding agents reading Midtrans docs discover the skill
-> on their own. After publishing, run ./tools/docs_drift_watch.py --update
-> and commit the refreshed snapshot, since llms.txt gains a new entry.
-> Remove this note before publishing.
+> Ready-to-publish source for the docs.midtrans.com "Build on Midtrans with
+> AI" page. Create it in the Documentation section under "Technical Reference
+> & Developer Tools", as a sibling of "Library & Plugins" and "Postman
+> Collection", with slug `building-with-ai` (ReadMe keeps the URL stable if
+> the page is later promoted in the nav). Set the page title and excerpt from
+> the frontmatter above, then paste only the body below this note. ReadMe
+> adds the published page to https://docs.midtrans.com/llms.txt
+> automatically, so coding agents reading Midtrans docs discover it on their
+> own. After publishing, run ./tools/docs_drift_watch.py --update and commit
+> the refreshed snapshot, since llms.txt gains a new entry. Remove this note
+> before publishing.
 
-Midtrans ships an official **Agent Skill** that teaches AI coding agents how to integrate Midtrans payments safely: product selection (Snap, Core API, BI-SNAP, Payment Link), merchant readiness preflight, payment state modeling, webhook signature verification, idempotent fulfillment, and sandbox-first verification.
+Use AI coding agents and LLMs to integrate Midtrans payments. Midtrans ships two AI surfaces today: an official **agent skill** that teaches coding agents how to integrate safely, and **plain-text documentation** built for LLM consumption. Both need no credentials and call no Midtrans APIs by themselves.
 
-The skill is a folder of Markdown instructions plus deterministic helper scripts. It needs **no credentials and calls no Midtrans APIs by itself** — your agent reads it and applies it to your codebase.
+## Install the agent skill
 
-## Quick install
+The skill covers product selection (Snap, Core API, BI-SNAP, Payment Link), merchant readiness preflight, payment state modeling, webhook signature verification, idempotent fulfillment, and sandbox-first verification.
 
 With the [skills CLI](https://github.com/vercel-labs/skills) (works with Claude Code, Codex, Cursor, and other supported agents):
 
@@ -42,16 +43,23 @@ Then ask your agent, for example:
 Use integrate-midtrans-payments to add Midtrans Snap checkout to this app.
 ```
 
-## What the skill enforces
+What the skill enforces:
 
 - Inspects your project and confirms merchant readiness (account, sandbox keys, active payment methods, callback URLs) before writing code.
 - Routes each payment method to the right Midtrans product instead of mixing Snap, Core API, and BI-SNAP request shapes.
 - Keeps server keys and signing on the backend, verifies webhook signatures, and fulfills orders only from trusted signals.
 - Verifies in sandbox with deterministic signature checks and webhook replay before any go-live step.
 
-## Notes
+Manually copied skills do not auto-update — refresh the folder before major payment work.
 
-- Manually copied skills do not auto-update — refresh the folder before major payment work.
-- The skill treats this documentation site as the source of truth and re-reads [https://docs.midtrans.com/llms.txt](https://docs.midtrans.com/llms.txt) on every engagement; the skill files carry integration discipline, not API reference copies.
-- Found a misroute or a gap? File an issue at [github.com/midtrans/midtrans-agent-skills](https://github.com/midtrans/midtrans-agent-skills/issues).
-- A Midtrans MCP server for authenticated sandbox interaction is a separate, later phase; the skill stays the lightweight no-credentials option.
+## Plain text docs
+
+Every page on this documentation site has a Markdown variant: append `.md` to the URL, for example [https://docs.midtrans.com/docs/snap-snap-integration-guide.md](https://docs.midtrans.com/docs/snap-snap-integration-guide.md). Markdown pages cost fewer tokens than HTML and keep the document structure intact.
+
+The complete page index lives at [https://docs.midtrans.com/llms.txt](https://docs.midtrans.com/llms.txt), following the [llmstxt.org](https://llmstxt.org) convention. Point your agent there first; the agent skill treats it as the source of truth and re-reads it on every engagement.
+
+## What's next
+
+A Midtrans MCP server for authenticated sandbox interaction is a separate, later phase; the agent skill stays the lightweight no-credentials option.
+
+Found a misroute or a gap in the skill? File an issue at [github.com/midtrans/midtrans-agent-skills](https://github.com/midtrans/midtrans-agent-skills/issues).
