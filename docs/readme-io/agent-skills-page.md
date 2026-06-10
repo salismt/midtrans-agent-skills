@@ -4,10 +4,15 @@ excerpt: Official Midtrans skill for AI coding agents — Claude Code, Codex, Co
 ---
 
 > Ready-to-publish source for the docs.midtrans.com "AI Agent Skills" page.
-> Publish it under Guides (for example next to "Developer Tools"); ReadMe will
-> add it to https://docs.midtrans.com/llms.txt automatically, so coding agents
-> reading Midtrans docs discover the skill on their own. Remove this note
-> before publishing.
+> Create it in the Documentation section under "Technical Reference &
+> Developer Tools", as a sibling of "Library & Plugins" and "Postman
+> Collection", with slug `ai-agent-skills`. Set the page title and excerpt
+> from the frontmatter above, then paste only the body below this note.
+> ReadMe adds the published page to https://docs.midtrans.com/llms.txt
+> automatically, so coding agents reading Midtrans docs discover the skill
+> on their own. After publishing, run ./tools/docs_drift_watch.py --update
+> and commit the refreshed snapshot, since llms.txt gains a new entry.
+> Remove this note before publishing.
 
 Midtrans ships an official **Agent Skill** that teaches AI coding agents how to integrate Midtrans payments safely: product selection (Snap, Core API, BI-SNAP, Payment Link), merchant readiness preflight, payment state modeling, webhook signature verification, idempotent fulfillment, and sandbox-first verification.
 
