@@ -188,6 +188,14 @@ If the page uses Content Security Policy, check current Snap JS and asset domain
 
 For mobile apps (Android, iOS, Flutter, React Native), Snap is typically embedded via WebView with deeplink return for e-wallet app-switch flows. See [mobile-sdk.md](mobile-sdk.md).
 
+### Popup Script Loading
+
+In frameworks with streaming SSR or partial prerendering (for example, Next.js App Router with PPR or React Suspense), loading `snap.js` inside a deferred page component can race with the call to `window.snap.pay()`.
+
+Load `snap.js` from the application root layout or an equivalent stable application boundary with the `data-client-key` attribute. Use the framework's script-loading primitive, wait for the script-ready signal, and verify `window.snap.pay` is available before opening the popup. For example, Next.js applications can use `<Script strategy="afterInteractive" />` in the root layout.
+
+If the application intentionally falls back to redirect checkout when Snap JS is unavailable, this race can appear as an unexpected redirect instead of a popup. Treat that as an integration lifecycle issue: confirm script placement and readiness before changing the Snap display mode.
+
 ## Webhook And Status Handling
 
 Do not fulfill from Snap JS callbacks. Fulfillment requires a verified notification and/or trusted backend status lookup.
@@ -302,6 +310,7 @@ Do not enable an advanced feature just because it exists. Tie every feature to a
 | Status lookup returns not found after token creation | Customer has not selected/confirmed a method yet | Treat as not attempted, keep order recoverable. |
 | Popup closes without payment | Customer closed Snap or token/page expired | Preserve order state and show continue/retry options. |
 | Snap JS blocked | Wrong JS URL or CSP blocks script/frame/connect domains | Use environment-specific Snap JS URL and current CSP domains. |
+| Popup API is unavailable, or the application unexpectedly uses its redirect fallback | `snap.js` was loaded inside a streamed/deferred component or the application called `snap.pay()` before initialization completed | Load `snap.js` from a stable application boundary with `data-client-key`, wait for the script-ready signal, and verify `window.snap.pay` before calling it. |
 
 ## Snap Production Checklist
 
