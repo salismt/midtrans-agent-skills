@@ -147,6 +147,8 @@ Keep notification and status handling idempotent and monotonic: never let a late
 ### QRIS MPM
 
 - Create payment server-side.
+- Current docs expose `/v1.0/qr/qr-mpm-generate` for the charge and `/v1.0/qr/qr-mpm-notify` for the QRIS MPM notification callback. Preserve each exact path: the transactional signature is computed over the generate path and the notification signature over the callback path, so shortening or normalizing either path breaks signing or verification.
+- The generate response returns three QR fields: `qrUrl` (a downloadable QR image URL), `qrImage` (base64-encoded PNG), and `qrContent` (the raw QR string). Resolve the display image with a fixed priority rather than picking arbitrarily: `qrUrl` first (render directly, no local generation), then `qrImage` (wrap as `data:image/png;base64,` unless it already is), then `qrContent` (generate a QR locally as a fallback). If the frontend renders `qrUrl` via an `<img>`/image component, allow unoptimized/remote rendering so the Midtrans-hosted image is not re-encoded.
 - Persist provider reference, QR content or QR image URL, expiry, amount, and method.
 - Render QR/instructions from persisted payment state.
 - Poll or reconcile via status API while waiting for notification.
@@ -196,7 +198,7 @@ Always reconcile on the merchant order id / `trxId` as the primary key, not on t
 BI-SNAP notifications use **product-specific standardized callback paths** (confirm exact paths against current docs), for example:
 
 - Direct Debit: `/v1.0/debit/notify`
-- QRIS MPM: `/v1.0/qr/notify`
+- QRIS MPM: `/v1.0/qr/qr-mpm-notify`
 - Virtual Account: `/v1.0/va/notify`
 
 The notification signature is verified over the **exact request path**: `POST:${requestPath}:${bodyHashHex}:${timestamp}`. Because the path is part of the signed string, a single dispatcher route that rewrites, normalizes, or strips the path before verification will fail signature checks. If you consolidate handling, preserve the literal request path the provider calls in the string-to-sign, and register that exact path in the dashboard.

@@ -65,6 +65,7 @@ Token request checks:
 - If `item_details` is included, net item total must equal `gross_amount`; negative-price items can represent discounts if current docs allow the use case.
 - Use `enabled_payments` only when the merchant intentionally restricts payment methods.
 - Validate `enabled_payments` against the merchant's configured Snap-owned methods before calling the provider.
+- Send `credit_card: { "secure": true }` whenever card payments are in scope, so 3-D Secure is enforced for every card transaction. Gate it on the card method (do not rely on a dashboard default) and keep it out of non-card payloads.
 - Include customer details when available, but do not collect/store unnecessary PII.
 - Set expiry intentionally for async methods. `expiry` controls payment-method expiry; `page_expiry` controls Snap page/token lifetime.
 - Consider a per-transaction `notification_url` only when the project needs route-specific callback handling; otherwise use dashboard Payment Notification URL.
@@ -93,6 +94,9 @@ Example token payload:
     }
   ],
   "enabled_payments": ["credit_card", "alfamart"],
+  "credit_card": {
+    "secure": true
+  },
   "callbacks": {
     "finish": "https://merchant.example/orders/12345"
   },
@@ -276,7 +280,7 @@ Load current docs before implementing any advanced feature. These are decision p
 | Customer collection controls | Merchant wants Snap to collect name/email/phone/address | Decide which fields are required, optional, or not collected. |
 | Dashboard theme/preferences | Merchant wants branded Snap UI | Prefer dashboard configuration over code. |
 | Customer-imposed payment fee | Merchant wants to pass some payment fee to customer | Confirm merchant pricing/legal policy and active method support; add the fee as an item so net `item_details` total still equals `gross_amount`. |
-| Credit card 3DS | Card payments are enabled | Keep 3DS enabled unless Midtrans and merchant risk owners explicitly approve otherwise. |
+| Credit card 3DS | Card payments are enabled | Send `credit_card: { "secure": true }` in the token request so 3DS is enforced per transaction. Keep it enabled unless Midtrans and merchant risk owners explicitly approve otherwise; gate it on the card method so non-card payloads stay clean. |
 | Saved card / subsequent card payment | Returning customers need faster card checkout | Store returned card token fields server-side and respect expiry. |
 | Recurring card payment | Subscription or scheduled billing | Separate first-payment tokenization from later recurring charges. |
 | Pre-authorization / capture later | Merchant ships later or needs manual review | Track authorization, capture, and expiry states distinctly. |

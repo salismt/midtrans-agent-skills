@@ -266,7 +266,7 @@ Use integrate-midtrans-payments to wire BI-SNAP notifications for QRIS, VA, and 
 
 Expected behavior:
 
-- Uses product-specific standardized callback paths (for example `/v1.0/debit/notify`, `/v1.0/qr/notify`, `/v1.0/va/notify`) rather than one merged route, and confirms exact paths against current docs.
+- Uses product-specific standardized callback paths (for example `/v1.0/debit/notify`, `/v1.0/qr/qr-mpm-notify`, `/v1.0/va/notify`) rather than one merged route, and confirms exact paths against current docs.
 - Verifies the notification signature over the exact request path (`POST:requestPath:bodyHashHex:timestamp`) using the Midtrans public key, and warns that a path-rewriting dispatcher breaks verification.
 - Returns the BI-SNAP-standard response envelope per product (for example VA `2002500` echoing `virtualAccountData`; QR `2005200`; debit `2005600`), not a generic `200 OK`.
 - Reads the raw body for verification, verifies before mutating, and gates any verification bypass to non-production only.
